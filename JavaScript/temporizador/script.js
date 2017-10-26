@@ -1,3 +1,9 @@
+/*
+ *  AUTHOR: José Antonio López López
+ *  EMAIL: joseantoniolopez241197@gmail.com
+ *  GITHUB: https://github.com/JoseAntonioLpz
+ */
+
 (function(){
     var hora = document.getElementById('hora');
     var minutos = document.getElementById('minuto');

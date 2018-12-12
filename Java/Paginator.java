@@ -31,7 +31,7 @@ public class Paginator<T> {
 	}
 
 	public int getPage() {
-		if(page > this.getLast()) {
+		if (page > this.getLast()) {
 			page = this.getLast();
 		}
 		return page;

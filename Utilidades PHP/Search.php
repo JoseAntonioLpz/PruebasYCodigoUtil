@@ -126,7 +126,7 @@ class Search{
             $route = substr($route, 0 , strrpos( $route, '/'));
             $route = strrev($route);
         }
-        var_dump($route);
+        //var_dump($route);
         $this->search($file, $route);
         return (!$this->not_result) ? $base . '/' . $this->finallyRoute : $this->finallyRoute;
     }

@@ -82,6 +82,8 @@ class Search{
             }
             $cont++;    
         }
+
+        return 0;
     }
     
     private function getFirstDir($list){
@@ -122,11 +124,17 @@ class Search{
         if(!empty($base)){
             chdir($base);
         
-            $route = strrev($route);
-            $route = substr($route, 0 , strrpos( $route, '/'));
-            $route = strrev($route);
+            //$route = strrev($route);
+            //echo $route . '<br>';
+            //$route = substr($route, 0 , strrpos( $route, '/'));
+            //echo $route. '<br>';
+            //$route = strrev($route);
+            //echo $route. '<br>';
+            $route = explode('/', $route);
+            $route = $route[count($route) - 1];
+
         }
-        //var_dump($route);
+        //var_dump($base);
         $this->search($file, $route);
         return (!$this->not_result) ? $base . '/' . $this->finallyRoute : $this->finallyRoute;
     }

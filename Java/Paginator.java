@@ -93,12 +93,14 @@ public class Paginator<T> {
 	}
 
 	public List<T> getElements() {
-		// Calculamos la posicion inicial de la pagina
-		int initial = (this.getPage() * this.getNumItems()) - this.getNumItems();
-		// Recorremos el arraylist el numero de resultados que queremos
-		for (int i = 0; i < this.getNumItemsForPaginate(); i++) {
-			// Guardamos en un Array los X valores
-			this.el.add(i, this.getIds().get(initial + i));
+		if(!this.getIds().isEmpty()) {
+			// Calculamos la posicion inicial de la pagina
+			int initial = (this.getPage() * this.getNumItems()) - this.getNumItems();
+			// Recorremos el arraylist el numero de resultados que queremos
+			for (int i = 0; i < this.getNumItemsForPaginate(); i++) {
+				// Guardamos en un Array los X valores
+				this.el.add(i, this.getIds().get(initial + i));
+			}
 		}
 		return el;
 	}

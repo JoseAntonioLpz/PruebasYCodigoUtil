@@ -1,0 +1,50 @@
+    html {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+    }
+    body {
+        margin: 0;
+        font-size: 26px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: #ffffff;
+        width: 100%;
+        height: 100%;
+        perspective: 1px;
+        transform-style: preserve-3d;
+        overflow-x:hidden;
+        overflow-y:auto;
+    }
+    .parallax-wrapper {
+        width: 100%;
+        height: 100%;
+        padding-top:20vh;
+        box-sizing: border-box;
+        transform-style: preserve-3d;
+    }
+    .parallax-wrapper::before {
+        content:"";
+        width: 100%;
+        height: 100%;
+        top:0;
+        left:0;
+        background-image: url("geo.jpg");
+        position: absolute;
+        z-index: -1;
+        transform:translateZ(-1px) scale(2);
+    }
+    .regular-wrapper {
+        width: 100%;
+        height: 100%;
+        padding-top:20vh;
+        /*background-image: url("geo2.jpg");*/
+        background-color: blue;
+        z-index: 2;
+        position: relative;
+    }
+    .content {
+        margin: 0 auto;
+        padding: 50px;
+        width: 50%;
+        background: #aaa;
+    }

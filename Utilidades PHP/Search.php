@@ -1,7 +1,5 @@
 <?php
 
-namespace MentelistaApp\Http\Controllers\Classes;
-
 /*
  * AUTHOR: Jose Antonio Lopez Lopez
  * GITHUB: https://github.com/JoseAntonioLpz
@@ -158,5 +156,10 @@ class Search{
     private function comprobateDirectory($base){
         $dirAct = getcwd();
         return (strpos($dirAct, str_replace('/', '\\', $base))) ? true : false;
+    }
+
+    static public function getRouting($file, $route, $def = ''){
+        $s = new Search($def);
+        return $s->getRoute($file, $route);
     }   
 }

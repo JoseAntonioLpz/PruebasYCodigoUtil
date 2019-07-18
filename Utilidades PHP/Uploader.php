@@ -64,17 +64,13 @@ class Uploader{
 
 		if(!is_dir($this->dir_name)){
 			$r = mkdir($this->dir_name, 0777, true);
+			
 		}
 
 		$res = is_dir($this->dir_name);
 
-		if($r){
-			$chr = explode ('/', $this->dir_name);
-			chdir($chr[count($chr) - 1]);
-		}else{
-			chdir($this->dir_name);
-		}
-
+		if($res) chdir($this->dir_name);
+		
 		return $res;
 	}
 

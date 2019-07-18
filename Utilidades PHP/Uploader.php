@@ -9,8 +9,18 @@ class Uploader{
 	private $file_name, $dir_name, $final_arr, $root, $response;
 
 	function __construct($file_name = '', $dir_name = '', $root = ''){
-		$this->file_name = $file_name;
-		$this->dir_name = $dir_name;
+
+		if($file_name !== ''){
+			$this->file_name = $file_name;
+		}else{
+			$this->file_name = base64_encode(rand());
+		}
+
+		if($dir_name !== ''){
+			$this->dir_name = $dir_name;
+		}else{
+			$this->dir_name = 'uploads';
+		}
 		$this->setFinalArr($_FILES);
 		$this->root = $root;
 		$this->response = array();

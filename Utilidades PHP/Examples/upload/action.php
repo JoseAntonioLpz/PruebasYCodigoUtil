@@ -4,9 +4,11 @@ include_once 'Uploader.php';
 
 echo 'Subiendo archivo... <br>';
 
-$uploader = new Uploader('file-' , 'francisco', '../../');
+//$uploader = new Uploader();
 
-$uploader->save();
+//$uploader->save();
+
+Uploader::upload('Francisco', 'pepe', '../');
 
 header('Location: http://localhost:8079/proyectos/pruebas/upload/');
 exit;

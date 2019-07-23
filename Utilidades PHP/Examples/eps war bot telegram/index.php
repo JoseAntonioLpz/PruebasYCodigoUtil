@@ -1,6 +1,18 @@
 <?php
 
-$people = [ // CONECTAR A UN BD
+$enlace = mysqli_connect("127.0.0.1", "root", "root", "war");
+
+// mysqli_query ( mysqli $link , string $query [, int $resultmode = MYSQLI_STORE_RESULT ] ) : mixed
+
+$res = mysqli_query($enlace, 'SELECT * FROM people');
+
+$people = [];
+
+while ($row = $res->fetch_assoc()) { 
+	$people[] = [$row["name"], $row["vivo"]];
+} 
+
+/*$people = [ // CONECTAR A UN BD
 	['Jose', 1],
 	['Juanjo', 1],
 	['Marcial', 1],
@@ -14,7 +26,7 @@ $people = [ // CONECTAR A UN BD
 	['Mauricio', 1],
 	['Acentos', 1],
 	['Perez', 1],
-];
+];*/
 
 
 $life = getLife($people);
@@ -58,7 +70,9 @@ function kill(&$people, &$life, $attack, $def){
 
 	unset($life[$def]);
 
-	$msg = 'HOLA';
+	$msg = '';
+
+	$res = mysqli_query($enlace, "update people set vivo = 0 where name = '" . $atacante . "'");
 
 	if(count($life) > 1){
 		$msg = $atacante . ' ha matado a ' . $defensor . ' Quedan: ' . count($life) . ' EPSers restantes';

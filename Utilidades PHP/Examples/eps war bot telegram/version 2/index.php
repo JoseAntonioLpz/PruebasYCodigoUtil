@@ -14,7 +14,7 @@ if(count($lived) <= 1){
 	exit;
 }
 
-$act = rand(1, 4);
+$act = rand(1, 10);
 
 switch ($act) {
 	case 4:

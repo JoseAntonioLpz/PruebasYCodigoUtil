@@ -20,7 +20,7 @@ $lived = $db->getDeath();
 $msgdeath = 'Muertos: ' . PHP_EOL;
 
 foreach ($lived as $key => $value) {
-	$msgdeath .= $value->name ', ';
+	$msgdeath .= $value->name . ', ';
 }
 
 $msgdeath = substr($msgdeath, 0, -2);

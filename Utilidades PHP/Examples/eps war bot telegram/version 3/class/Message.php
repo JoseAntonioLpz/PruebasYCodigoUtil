@@ -7,8 +7,8 @@ class Message{
 	private function __construct($msg){
 		$this->msg = $msg;
 		$this->id_bot = '903410626:AAHNQj1sZejA_ENOEZeYYX-3ABasr4NUxog';
-		$this->id_chat = '-1001174019148';
-		//$this->id_chat = '-1001364992090';
+		//$this->id_chat = '-1001174019148';
+		$this->id_chat = '-1001364992090';
 	}
 
 	static public function sendMessage($msg){

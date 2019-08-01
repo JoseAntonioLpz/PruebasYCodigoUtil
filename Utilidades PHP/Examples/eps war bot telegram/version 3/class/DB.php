@@ -114,8 +114,8 @@ class DB{
 		while ($row = $res->fetch_assoc()) { 
 			$counter = new stdClass();
 			$counter->id = $row["id"];
-			$counter->name = $row["people1"];
-			$counter->name = $row["people2"];
+			$counter->people1 = $row["people1"];
+			$counter->people2 = $row["people2"];
 
 
 			$counters[] = $counter;
@@ -131,8 +131,17 @@ class DB{
 
 		$boy = new stdClass();
 		$boy->id = $row["id"];
-		$boy->name = $row["people1"];
-		$boy->name = $row["people2"];
+		$boy->name = $row["name"];
+		$boy->life = $row["life"];
+
+		$formas = mysqli_query($this->link, 'SELECT forma FROM formas m where m.people = ' . $id);
+
+		$fr = [];
+		while ($r = $formas->fetch_assoc()) {
+			$fr[] = $r['forma'];
+		}
+
+		$boy->formas = $fr;
 
 		return $boy;
 	}

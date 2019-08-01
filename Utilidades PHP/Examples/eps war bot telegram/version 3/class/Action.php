@@ -71,13 +71,13 @@ class Action{
 	public function events(){
 		$lived = $this->db->getLive(); //getCounters
 		$deaths = $this->db->getDeath();
-		$counters = $this->getCounters();
+		$counters = $this->db->getCounters();
 
 		$rand = rand(0,1);
 
 		switch ($rand) {
 			case 0:	// VALLHALA
-				if(count($deaths > 3)){
+				if(!is_null($deaths) && count($deaths) > 3){
 					$this->vallhala($deaths);
 				}else{
 					$this->sedSangre($lived, $counters);
@@ -90,7 +90,53 @@ class Action{
 	}
 
 	private function sedSangre($lived, $counters){
+		$numRand = rand(0, count($counters) - 1);
 
+		$event = false;
+		foreach ($counters as $key => $value) {
+
+			$p1 = $this->countersLived($lived, $value->people1);
+			$p2 = $this->countersLived($lived, $value->people2);
+
+			if($p1 && $p2){
+				$win = rand(0, 1);
+				if($win === 0){
+					$attack = $this->db->getPeopleById($value->people1);
+					$def = $this->db->getPeopleById($value->people2);
+				}else{
+					$attack = $this->db->getPeopleById($value->people2);
+					$def = $this->db->getPeopleById($value->people1);
+				}
+
+				$this->db->kill($def);
+				$msg = 'EVENTO SED DE SANGRE: ' . PHP_EOL . '2 antiguos enemigos se han reencontrado y han empezado a luchar con fiereza.' . PHP_EOL;
+				$msg .= $attack->name . ' ' . $attack->formas[rand(0, count($attack->formas) - 1)] . ' ' . $def->name . PHP_EOL; 
+
+				$this->db->saveMuerte($attack->id, $def->id);
+				$this->db->saveRegistro($msg);
+
+				Message::sendMessage($msg);
+
+				$event = true;
+				break;
+			}
+		}
+
+		if(!$event){
+			$this->kill($lived);
+		}
+	}
+
+	private function countersLived($lived, $counter){
+		$p = false;
+		foreach ($lived as $key => $value) {
+			if($value->id === $counter){
+				$p = true;
+				break;
+			}
+		}
+
+		return $p;
 	}
 
 	private function vallhala($death){
@@ -98,7 +144,7 @@ class Action{
 		$cont = 0;
 		$msg = 'EVENTO: Vallhala' . PHP_EOL . 'La diosa ha revivido a:' . PHP_EOL;
 		foreach ($death as $key => $value) {
-			$rand = rand(0, count($deaths) - 1);
+			$rand = rand(0, count($death) - 1);
 
 			if(!in_array($value, $listRev)){
 				$listRev[] = $value;
@@ -112,7 +158,7 @@ class Action{
 
 		foreach ($listRev as $key => $value) {
 			$this->db->revive($value);
-			$msg .= $value->name ', ';
+			$msg .= $value->name . ', ';
 		}
 
 		$msg = substr($msg, 0, -2);

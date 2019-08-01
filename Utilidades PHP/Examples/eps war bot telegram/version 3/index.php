@@ -30,6 +30,17 @@ if(count($lived) <= 1){ // AQUI HAY QUE REINICIAR
 
 if($db->getCountRegistro() % 10 === 0){
 	$action->events();
+	$lived = $db->getLive();
+
+	$msglived = 'Con vida: ' . PHP_EOL;
+
+	foreach ($lived as $key => $value) {
+		$msglived .= $value->name . ' (' . $value->count . '), ';
+	}
+
+	$msglived = substr($msglived, 0, -2);
+
+	Message::sendMessage($msglived);
 	exit;
 }
 

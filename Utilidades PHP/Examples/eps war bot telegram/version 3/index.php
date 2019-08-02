@@ -73,4 +73,6 @@ foreach ($lived as $key => $value) {
 
 $msglived = substr($msglived, 0, -2);
 
+sleep(2);
+
 Message::sendMessage($msglived);

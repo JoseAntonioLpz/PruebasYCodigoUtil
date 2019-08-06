@@ -162,7 +162,7 @@ class Action{
 		}
 
 		$msg = substr($msg, 0, -2);
-
+		$this->db->saveRegistro($msg);
 		Message::sendMessage($msg);
 	}
 }

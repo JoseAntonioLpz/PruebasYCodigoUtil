@@ -30,13 +30,13 @@ class Encrypt{
 			$rand = rand(0,2);
 			switch ($rand) {
 				case 0:
-					$fin = base64_encode($fin) . 0;
+					$fin = $this->supp . '/@/' . base64_encode($fin) . 0;
 					break;
 				case 1:
-					$fin = convert_uuencode($fin) . 1;
+					$fin = $this->supp . '/@/' . convert_uuencode($fin) . 1;
 					break;
 				case 2:
-					$fin = strrev($fin) . 2;
+					$fin = $this->supp . '/@/' . strrev($fin) . 2;
 					break;	
 			}
 		}
@@ -50,8 +50,9 @@ class Encrypt{
 		$fin = convert_uudecode($word);
 		$fin = strrev($fin);
 
-		for ($i=0; $i < $this->it; $i++) { 
+		for ($i=0; $i < $this->it; $i++) { -
 			$num = substr($fin, -1);
+			$fin = str_replace ([$this->supp . '/@/'], '', $fin);
 			switch ($num) {
 				case '0':
 					$fin = base64_decode(substr($fin, 0, -1));

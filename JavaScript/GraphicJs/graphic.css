@@ -1,0 +1,38 @@
+#graphic{
+	display: flex;
+	width: 90%;
+	height: 90%;
+	border-left: 2px solid black;
+	border-bottom: 2px solid black;
+	position: relative;
+	justify-content: space-around;
+	align-items:flex-end;
+}
+
+#graphic .descX{
+	position: absolute;
+	bottom: 0;
+	right: -20px;
+}
+
+#graphic .descY{
+	position: absolute;
+	top: 0;
+	left: 10px;
+}
+
+#graphic .column{
+	position: relative;
+}
+
+#graphic p{
+	position: absolute;
+	bottom: -25px;
+	margin: 0;
+	text-align: center;
+	width: 100%;
+}
+
+#graphic p.value{
+	top: -20px;
+}

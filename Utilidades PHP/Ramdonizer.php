@@ -1,6 +1,10 @@
 <?php
+/*
+ * AUTHOR: Jose Antonio Lopez Lopez
+ * GITHUB: https://github.com/JoseAntonioLpz
+ */
 
-Class Ramdonizer{
+class Ramdonizer{
     
     private $exit;
     private $char;

@@ -1,4 +1,8 @@
 <?php
+/*
+ * AUTHOR: Jose Antonio Lopez Lopez
+ * GITHUB: https://github.com/JoseAntonioLpz
+ */
 
 class Encrypt{
 

@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>images/homer_sprite.png</file>
+        <file>images/sky.jpg</file>
+        <file>images/sprite.png</file>
+        <file>images/sprite.jpg</file>
+    </qresource>
+</RCC>

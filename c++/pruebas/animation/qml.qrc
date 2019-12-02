@@ -5,5 +5,9 @@
         <file>images/sky.jpg</file>
         <file>images/sprite.png</file>
         <file>images/sprite.jpg</file>
+        <file>images/texture.jpg</file>
+        <file>images/sprite2.png</file>
+        <file>images/sprite3.png</file>
+        <file>images/sprite4.png</file>
     </qresource>
 </RCC>

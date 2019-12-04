@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
+import QtQml 2.12
 
 Window {
     id: mainWindow
@@ -9,43 +10,47 @@ Window {
     title: qsTr("Hello World")
     color: "cyan";
 
-    Component.onCompleted: showMaximized();
+    //Component.onCompleted: showMaximized();
     Item {
         id: mainItem
         anchors.fill: parent
         focus: true
         Keys.onPressed: {
-            //if (event.key === Qt.Key_Space) console.log("Space Key")
-            console.log(switchKey(event.key));
+            mainWindow.switchKey(event.key);
+        }
+
+        Timer{
+            id: gravity
+            interval: 250
+            running: true
+            repeat: true
+            onTriggered: mainWindow.gravity();
         }
 
         Item{
+            id: itemMonster
             anchors.fill: parent
-            Rectangle {
-                color: "red";
-                width: 20;
-                height: 20;
-                x: Screen.desktopAvailableWidth;
-                y: Screen.desktopAvailableHeight / Math.floor((Math.random() * 10));
-                NumberAnimation on x{
-                    from: Screen.desktopAvailableWidth
-                    to: 0
-                    duration: 3000
-                    loops: Animation.Infinite
-                }
+            Timer {
+                interval: 500
+                running: true
+                repeat: true
+                onTriggered: mainWindow.createObjects(itemMonster, Screen.desktopAvailableWidth, Screen.desktopAvailableHeight / Math.floor((Math.random() * 10)));
             }
-            //Component.onCompleted: createObjects(this, Screen.desktopAvailableWidth, Screen.desktopAvailableHeight / Math.floor((Math.random() * 10)));
         }
 
         Rectangle{
             id: greenRectagle
-            //anchors.left: parent.left
-            //anchors.right: parent.right
             width: Screen.desktopAvailableWidth + 174
             anchors.top: parent.verticalCenter
             anchors.bottom: parent.bottom
             color: "green"
-            Image { source: "images/texture.jpg"; fillMode: Image.Tile; anchors.fill: parent;  opacity: 0.3 }
+
+            Image {
+                source: "images/texture.jpg"
+                fillMode: Image.Tile
+                anchors.fill: parent
+            }
+
             NumberAnimation on x{
                 from: 0
                 to: -174
@@ -64,33 +69,38 @@ Window {
             frameCount: 6
             frameDuration: 60
             frameY : 0
-            /*interpolate: false*/
+            interpolate: false
             y: Screen.desktopAvailableHeight / 2 - spriteImage.height
         }
+    }
+
+    function jump(){
+        spriteImage.y = spriteImage.y - 50;
+        gravity.restart();
+    }
+
+    function gravity(){
+        spriteImage.y = Screen.desktopAvailableHeight / 2 - spriteImage.height
     }
 
     function switchKey(key){
         switch(key){
         case Qt.Key_Space:
-            return "space";
+            jump();
+            break;
         default:
             return false;
         }
     }
 
     function createObjects(parentItem, x, y){
-        var newObject = Qt.createQmlObject(
-                            'import QtQuick 2.0;
-                            Rectangle {color: "red"; width: 20;height: 20;x: ' + x + '; y:' + y + ';
-NumberAnimation on x{
-                from: ' + x + '
-                to: 0
-                duration: 1000
-                loops: Animation.Infinite
-            }}',
-                            parentItem,
-                            "dinamicObject");
+        var newObject = Qt.createQmlObject('import QtQuick 2.12;import QtQuick.Window 2.12;
+            Rectangle {color:"cyan";width: 50;height: 50;x: ' + x + ';y: ' + y + ';
+            NumberAnimation on x{from: ' + x + ';to: -100;duration: 3500;}AnimatedSprite {
+            anchors.fill: parent;source: "images/bird.png";frameWidth: 240;frameHeight: 314;
+            frameCount: 20;frameDuration: 60;frameY : 0;interpolate: false;}}',
+            parentItem,"dinamicObject");
 
-        //newObject.destroy(1000);
+        newObject.destroy(3750);
     }
 }

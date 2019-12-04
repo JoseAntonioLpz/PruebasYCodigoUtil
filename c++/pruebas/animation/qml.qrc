@@ -9,5 +9,6 @@
         <file>images/sprite2.png</file>
         <file>images/sprite3.png</file>
         <file>images/sprite4.png</file>
+        <file>images/bird.png</file>
     </qresource>
 </RCC>

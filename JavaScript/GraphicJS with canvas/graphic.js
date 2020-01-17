@@ -112,7 +112,7 @@ function circle(canvas){
 		sAngle = eAngle;
 
 		cvx.beginPath();
-		cvx.fillRect(canvas.width - 65, -8 + (12 * cont), 10, 10);
+		cvx.fillRect(canvas.width - 65, -9 + (12 * cont), 10, 10);
 		cvx.fillStyle = "black";
 		cvx.font = "10px Arial";
 		cvx.fillText(object.name, canvas.width - 50, 0 + (12 * cont));

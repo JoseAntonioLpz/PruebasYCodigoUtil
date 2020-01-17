@@ -28,17 +28,29 @@ function circle(canvas){
 	let sAngle = 0;
 	let eAngle = 0;
 
+	let cont = 1;
 	data.forEach(function(object){
 		let percent = (( object.value * 100) / sum);
 		eAngle += ((percent * 2) / 100) * Math.PI;
 
 		cvx.beginPath();
-		cvx.moveTo(canvas.width / 2,canvas.height / 2);
+		cvx.moveTo(canvas.width / 2.5,canvas.height / 2.5);
 		cvx.fillStyle = object.color;
-		cvx.arc(canvas.width / 2,canvas.height / 2, canvas.width / 2, sAngle, eAngle, false);
+		cvx.arc(canvas.width / 2.5,canvas.height / 2.5, canvas.width / 2.5, sAngle, eAngle, false);
 		cvx.fill(); 
+		cvx.save();
 
 		sAngle = eAngle;
+
+		cvx.beginPath();
+		cvx.fillRect(canvas.width - 65, -8 + (12 * cont), 10, 10);
+		cvx.fillStyle = "black";
+		cvx.font = "10px Arial";
+		cvx.fillText(object.name, canvas.width - 50, 0 + (12 * cont));
+		console.log(object.name);
+		cvx.restore();
+
+		cont++;
 	});
 }
 
@@ -49,7 +61,7 @@ function graphic(canvas){
 	let cWidth = canvas.width;
 	let cHeight = canvas.height;
 
-	cvx.beginPath();
+	//cvx.beginPath();
 	cvx.fillStyle = "black";
 	cvx.font = "10px Arial";
 	cvx.fillText(canvas.dataset.title, 10 , 10);
@@ -82,16 +94,16 @@ function graphic(canvas){
 	data.forEach(function(object){
 		let height = (object.value * (cHeight - 15)) / maxVal;
 
-		cvx.beginPath();
+		//cvx.beginPath();
 		cvx.fillStyle = canvas.dataset.color;
 		cvx.fillRect(possAct, (cHeight - 15)- height, cut, height);
 		
-		cvx.beginPath();
+		//cvx.beginPath();
 		cvx.fillStyle = "black";
 		cvx.font = "10px Arial";
 		cvx.fillText(object.name.substring(0,6), possAct , cHeight - 5);
 
-		cvx.beginPath();
+		//cvx.beginPath();
 		cvx.fillStyle = canvas.dataset.valcol;
 		cvx.font = "10px Arial";
 		cvx.fillText(object.value, possAct , cHeight - height);

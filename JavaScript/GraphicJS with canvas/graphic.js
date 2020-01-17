@@ -4,16 +4,85 @@
 
 	for(let canvas of all){
 		switch(canvas.className){
-			case 'graphic':
-				graphic(canvas);
+			case 'graphic_bar':
+				graphicBar(canvas);
 				break;
 			case 'circle':
 				circle(canvas);
-				break;	
+				break;
+			case 'graphic':
+				graphic(canvas);
+				break;		
 		}
 	}
 
 }());
+
+function graphic(canvas){
+	let cvx = canvas.getContext('2d');
+
+	let cHeight = canvas.height;
+	let cWidth = canvas.width;
+
+	let data = JSON.parse(canvas.dataset.json);
+
+	let values = [];
+	data.forEach(function(object){
+		values.push(object.value);
+	});
+
+	let maxVal = Math.max(...values);
+
+	cvx.beginPath();
+	cvx.strokeStyle = "black";
+	cvx.moveTo(25,10);
+	cvx.lineTo(25, cHeight - 15);
+	cvx.lineTo(cWidth, cHeight - 15);
+	cvx.stroke();
+
+	cvx.beginPath();
+	cvx.font = "10px Arial";
+	cvx.fillText(maxVal, 0 , 20);
+
+	cvx.beginPath();
+	cvx.font = "10px Arial";
+	cvx.fillText(maxVal / 2, 0 , (cHeight - 15)/ 2);
+
+	cvx.beginPath();
+	cvx.font = "10px Arial";
+	cvx.fillText(0, 0 , cHeight - 15);
+
+	cvx.beginPath();
+	cvx.fillText(canvas.dataset.title, 30 , 20);
+
+	let x = 25;
+	let lx = 25;
+	let lh = (cHeight - 15) - (((data[0].value * (cHeight - 15)) / maxVal) - 15);
+	data.forEach(function(object){
+
+		let calcPos = (cHeight - 15) - (((object.value * (cHeight - 15)) / maxVal) - 15);
+
+		cvx.beginPath();
+		cvx.fillStyle = canvas.dataset.color;
+		cvx.arc(x, calcPos, 3, 0, 2 * Math.PI, true);
+		cvx.fill();
+
+		cvx.beginPath();
+		cvx.strokeStyle = canvas.dataset.color;
+		cvx.moveTo(lx,lh);
+		cvx.lineTo(x, calcPos);
+		cvx.stroke();
+
+		cvx.beginPath();
+		cvx.fillStyle = "black";
+		cvx.font = "10px Arial";
+		cvx.fillText(object.name, x, cHeight);
+
+		lx = x;
+		lh = calcPos;
+		x += parseInt(canvas.dataset.sep);
+	});
+}
 
 function circle(canvas){
 	let cvx = canvas.getContext('2d');
@@ -47,21 +116,23 @@ function circle(canvas){
 		cvx.fillStyle = "black";
 		cvx.font = "10px Arial";
 		cvx.fillText(object.name, canvas.width - 50, 0 + (12 * cont));
-		console.log(object.name);
 		cvx.restore();
 
 		cont++;
 	});
+
+	cvx.beginPath();
+	cvx.fillStyle = "black";
+	cvx.font = "10px Arial";
+	cvx.fillText(canvas.dataset.title, 0, canvas.height - 20);
 }
 
-function graphic(canvas){
+function graphicBar(canvas){
 
 	let cvx = canvas.getContext('2d');
 	
 	let cWidth = canvas.width;
 	let cHeight = canvas.height;
-
-	//cvx.beginPath();
 	cvx.fillStyle = "black";
 	cvx.font = "10px Arial";
 	cvx.fillText(canvas.dataset.title, 10 , 10);
@@ -94,16 +165,13 @@ function graphic(canvas){
 	data.forEach(function(object){
 		let height = (object.value * (cHeight - 15)) / maxVal;
 
-		//cvx.beginPath();
 		cvx.fillStyle = canvas.dataset.color;
 		cvx.fillRect(possAct, (cHeight - 15)- height, cut, height);
-		
-		//cvx.beginPath();
+
 		cvx.fillStyle = "black";
 		cvx.font = "10px Arial";
 		cvx.fillText(object.name.substring(0,6), possAct , cHeight - 5);
 
-		//cvx.beginPath();
 		cvx.fillStyle = canvas.dataset.valcol;
 		cvx.font = "10px Arial";
 		cvx.fillText(object.value, possAct , cHeight - height);

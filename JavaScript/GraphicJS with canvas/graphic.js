@@ -4,13 +4,13 @@
 
 	for(let canvas of all){
 		switch(canvas.className){
-			case 'graphic_bar':
+			case 'graphic_bar_lpz':
 				graphicBar(canvas);
 				break;
-			case 'circle':
+			case 'circle_lpz':
 				circle(canvas);
 				break;
-			case 'graphic':
+			case 'graphic_lpz':
 				graphic(canvas);
 				break;		
 		}
@@ -171,10 +171,13 @@ function graphicBar(canvas){
 		cvx.fillStyle = "black";
 		cvx.font = "10px Arial";
 		cvx.fillText(object.name.substring(0,6), possAct , cHeight - 5);
+		cvx.save();
 
 		cvx.fillStyle = canvas.dataset.valcol;
 		cvx.font = "10px Arial";
-		cvx.fillText(object.value, possAct , cHeight - height);
+		cvx.textAlign = 'center';
+		cvx.fillText(object.value, possAct + (cut / 2), cHeight - height);
+		cvx.restore();
 
 		possAct = possAct + cut + sep;
 	});

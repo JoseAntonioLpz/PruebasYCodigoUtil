@@ -7,16 +7,18 @@
 			case 'progress_bar_lpz':
 				progressBar(canvas);
 				break;
-
 			case 'progress_circle_lpz':
-				progressCircle(canvas);
-				break;	
+				progressCircle(canvas, 2, false);
+				break;
+			case 'progress_half_circle_lpz':
+				progressCircle(canvas, -1, true);
+				break;			
 		}
 	}
 
 }());
 
-function progressCircle(canvas){
+function progressCircle(canvas, multiplier, clock){
 
 	let cvx = canvas.getContext('2d');
 	let cHeight = canvas.height;
@@ -31,7 +33,7 @@ function progressCircle(canvas){
 	cvx.beginPath();
 	cvx.lineWidth = bulk;
 	cvx.strokeStyle = color;
-	cvx.arc(cWidth / 2, ((cHeight + parseInt(bulk)) - 10) / 2,(cWidth - 15)/ 2, 0, ((percent * 2) / 100) * Math.PI, false);
+	cvx.arc(cWidth / 2, ((cHeight + parseInt(bulk)) - 10) / 2,(cWidth - 15)/ 2, 0, ((percent * multiplier) / 100) * Math.PI, clock);
 	cvx.stroke();
 
 	switch(mostrate){
@@ -83,11 +85,11 @@ function progressBar(canvas){
 
 	cvx.beginPath();
 	cvx.font = font;
+	cvx.textBaseline = 'middle';
 	cvx.fillStyle = ctext;
-	cvx.fillText(text, 10, (cHeight + 10) / 2);
+	cvx.fillText(text, 10, cHeight / 2);
 
 	cvx.beginPath();
-	cvx.font = font;
 	cvx.fillStyle = cpercent;
-	cvx.fillText(percent + '%', cWidth - 30, (cHeight + 10) / 2);
+	cvx.fillText(percent + '%', cWidth - 30, cHeight / 2);
 }

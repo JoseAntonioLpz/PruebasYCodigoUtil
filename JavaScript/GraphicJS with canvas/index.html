@@ -5,6 +5,7 @@
 <title>Canvas</title>
 <script type="text/javascript" src="graphic.js" defer></script>
 <script type="text/javascript" src="progressbar.js" defer></script>
+<script type="text/javascript" src="timer.js" defer></script>
 
 <style>
 	.canvasContainer > .progress_bar_lpz{
@@ -40,7 +41,17 @@
 		<canvas class='progress_circle_lpz' width='100' height='100' data-text='Habilidad' data-percent='89' data-color='blue' data-font='10px Arial' data-bulk='5' data-mostrate='0'></canvas>
 
 		<canvas class='progress_circle_lpz' width='100' height='100' data-text='Canvas' data-percent='75' data-color='green' data-font='10px Arial' data-bulk='5' data-mostrate='2'></canvas>
-	</div>	
+	</div>
 
+	<div class='canvasContainer'>
+		<canvas class='progress_half_circle_lpz' width='100' height='100' data-text='Fuerza' data-percent='60' data-color='red' data-font='12px Arial' data-bulk='5' data-mostrate='2'></canvas>
+
+		<canvas class='progress_half_circle_lpz' width='100' height='100' data-text='Habilidad' data-percent='89' data-color='blue' data-font='12px Arial' data-bulk='5' data-mostrate='0'></canvas>
+
+		<canvas class='progress_half_circle_lpz' width='100' height='100' data-text='Canvas' data-percent='100' data-color='green' data-font='20px Arial' data-bulk='5' data-mostrate='1'></canvas>
+	</div>	
+	<hr>
+
+	<canvas class='timer_lpz' width='200' height='50' data-time='2020-11-24'></canvas>
 </body>
 </html> 

@@ -25,6 +25,8 @@ function graphic(canvas){
 	let cWidth = canvas.width;
 
 	let data = JSON.parse(canvas.dataset.json);
+	let title = (canvas.dataset.title != undefined) ? canvas.dataset.title : '';
+	let color = (canvas.dataset.color != undefined) ? canvas.dataset.color : 'blue';
 
 	let values = [];
 	data.forEach(function(object){
@@ -53,22 +55,25 @@ function graphic(canvas){
 	cvx.fillText(0, 0 , cHeight - 15);
 
 	cvx.beginPath();
-	cvx.fillText(canvas.dataset.title, 30 , 20);
+	cvx.fillText(title, 30 , 20);
 
 	let x = 25;
 	let lx = 25;
 	let lh = (cHeight - 15) - (((data[0].value * (cHeight - 15)) / maxVal) - 15);
+
+	let sep = (canvas.dataset.sep != undefined) ? canvas.dataset.sep : '55';
+
 	data.forEach(function(object){
 
 		let calcPos = (cHeight - 15) - (((object.value * (cHeight - 15)) / maxVal) - 15);
 
 		cvx.beginPath();
-		cvx.fillStyle = canvas.dataset.color;
+		cvx.fillStyle = color;
 		cvx.arc(x, calcPos, 3, 0, 2 * Math.PI, true);
 		cvx.fill();
 
 		cvx.beginPath();
-		cvx.strokeStyle = canvas.dataset.color;
+		cvx.strokeStyle = color;
 		cvx.moveTo(lx,lh);
 		cvx.lineTo(x, calcPos);
 		cvx.stroke();
@@ -80,7 +85,7 @@ function graphic(canvas){
 
 		lx = x;
 		lh = calcPos;
-		x += parseInt(canvas.dataset.sep);
+		x += parseInt(sep);
 	});
 }
 
@@ -88,6 +93,7 @@ function circle(canvas){
 	let cvx = canvas.getContext('2d');
 
 	let data = JSON.parse(canvas.dataset.json);
+	let title = (canvas.dataset.title != undefined) ? canvas.dataset.title : '';
 
 	var sum = 0; // La suma de todos lso values es el 100% que corresponde con 2 * Math.PI
 	data.forEach(function(object){
@@ -124,7 +130,7 @@ function circle(canvas){
 	cvx.beginPath();
 	cvx.fillStyle = "black";
 	cvx.font = "10px Arial";
-	cvx.fillText(canvas.dataset.title, 0, canvas.height - 20);
+	cvx.fillText(title, 0, canvas.height - 20);
 }
 
 function graphicBar(canvas){
@@ -133,9 +139,11 @@ function graphicBar(canvas){
 	
 	let cWidth = canvas.width;
 	let cHeight = canvas.height;
+	let title = (canvas.dataset.title != undefined) ? canvas.dataset.title : '';
+
 	cvx.fillStyle = "black";
 	cvx.font = "10px Arial";
-	cvx.fillText(canvas.dataset.title, 10 , 10);
+	cvx.fillText(title, 10 , 10);
 
 	cvx.beginPath();
 	cvx.moveTo(0,0);
@@ -150,22 +158,28 @@ function graphicBar(canvas){
 		values.push(object.value);
 	});
 
-	let sep = parseInt(canvas.dataset.sep);
+	let sep = (canvas.dataset.sep != undefined) ? parseInt(canvas.dataset.sep) : 10;
 	let maxVal = Math.max(...values);
 	let cut = ((cWidth - (sep * (data.length + 1))) / data.length);
 
-	if(canvas.dataset.min > cut){
-		cut = parseInt(canvas.dataset.min);
-	}else if(canvas.dataset.max < cut){
-		cut = parseInt(canvas.dataset.max);
+	let min = (canvas.dataset.min != undefined) ? canvas.dataset.min : 20;
+	let max = (canvas.dataset.max != undefined) ? canvas.dataset.max : 30;
+
+	if(min > cut){
+		cut = parseInt(min);
+	}else if(max < cut){
+		cut = parseInt(max);
 	};
 
 	let possAct = sep;
 
+	let color = (canvas.dataset.color != undefined) ? canvas.dataset.color : 'blue';
+	let valcol = (canvas.dataset.valcol != undefined) ? canvas.dataset.valcol : 'white';
+
 	data.forEach(function(object){
 		let height = (object.value * (cHeight - 15)) / maxVal;
 
-		cvx.fillStyle = canvas.dataset.color;
+		cvx.fillStyle = color;
 		cvx.fillRect(possAct, (cHeight - 15)- height, cut, height);
 
 		cvx.fillStyle = "black";
@@ -173,7 +187,7 @@ function graphicBar(canvas){
 		cvx.fillText(object.name.substring(0,6), possAct , cHeight - 5);
 		cvx.save();
 
-		cvx.fillStyle = canvas.dataset.valcol;
+		cvx.fillStyle = valcol;
 		cvx.font = "10px Arial";
 		cvx.textAlign = 'center';
 		cvx.fillText(object.value, possAct + (cut / 2), cHeight - height);

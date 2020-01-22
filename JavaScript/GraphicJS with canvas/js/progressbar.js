@@ -25,10 +25,10 @@ function progressCircle(canvas, multiplier, clock){
 	let cWidth = canvas.width;
 	let text = canvas.dataset.text;
 	let percent = canvas.dataset.percent;
-	let color = canvas. dataset.color;
-	let font = canvas.dataset.font;
-	let bulk = canvas.dataset.bulk;
-	let mostrate = canvas.dataset.mostrate;
+	let color = (canvas. dataset.color != undefined) ? canvas. dataset.color : 'blue';
+	let font = (canvas.dataset.font != undefined) ? canvas.dataset.font : '10px Arial';
+	let bulk = (canvas.dataset.bulk != undefined) ? canvas.dataset.bulk : '5';
+	let mostrate = (canvas.dataset.mostrate != undefined) ? canvas.dataset.mostrate : '0';
 
 	cvx.beginPath();
 	cvx.lineWidth = bulk;
@@ -68,10 +68,10 @@ function progressBar(canvas){
 	let cWidth = canvas.width;
 	let text = canvas.dataset.text;
 	let percent = canvas.dataset.percent;
-	let color = canvas. dataset.color;
-	let ctext = canvas.dataset.ctext;
-	let cpercent = canvas.dataset.cpercent;
-	let font = canvas.dataset.font;
+	let color = (canvas. dataset.color != undefined) ? canvas. dataset.color : 'cyan';
+	let ctext = (canvas.dataset.ctext != undefined) ? canvas.dataset.ctext : 'black';
+	let cpercent = (canvas.dataset.cpercent != undefined) ? canvas.dataset.cpercent : 'black';
+	let font = (canvas.dataset.font != undefined) ? canvas.dataset.font : '10px Arial';
 
 	cvx.moveTo(0,0);
 

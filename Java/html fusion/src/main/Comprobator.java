@@ -72,8 +72,8 @@ public class Comprobator {
 	
 	public Boolean generateFusionFile(String uri) { // Guardar fichero fusionado
 		FileWriter f = null;
-        PrintWriter pw = null;
-        Boolean res = false;
+        	PrintWriter pw = null;
+        	Boolean res = false;
 		try {
 			f =  new FileWriter(uri);
 			pw = new PrintWriter(f);
